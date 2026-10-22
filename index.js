@@ -17,7 +17,9 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.json());
-
+app.get('/', (req, res) => {
+  res.send('🚀 DoctorTracker Server is running successfully!');
+});
 // ─── MongoDB Client ────────────────────────────────────────────────────────────
 const client = new MongoClient(uri, {
   serverApi: { version: ServerApiVersion.v1, strict: false, deprecationErrors: true }
@@ -473,7 +475,7 @@ async function run() {
           if (p.doctorId) {
             try {
               doctor = await doctorsCollection.findOne({ _id: new ObjectId(p.doctorId) }, { projection: { name: 1, specialization: 1 } });
-            } catch {}
+            } catch { }
           }
           return { ...p, doctor };
         }));
